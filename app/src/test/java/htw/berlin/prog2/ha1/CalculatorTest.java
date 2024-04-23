@@ -123,7 +123,7 @@ class CalculatorTest {
     void InadequateDigitUnaryOperation() {
         Calculator calculator = new Calculator();
         calculator.pressDigitKey(0);
-        calculator.pressUnaryOperationKey("1/x");
+        calculator.pressUnaryOperationKey("1/x"); //Berechnung des Kehrwertes
         String expected = "Error";
         String actual = calculator.readScreen();
         assertEquals(expected, actual);

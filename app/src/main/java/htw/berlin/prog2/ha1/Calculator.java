@@ -31,7 +31,7 @@ public class Calculator {
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = ""; // Umwandlung des
 
         screen = screen + digit;
     }
@@ -55,19 +55,21 @@ public class Calculator {
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
+     * Falls bereit ein Operation durchgeführt worden ist, wird nach einer weiteren Operation das Zwichenergebnis angezeigt
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
         if (latestOperation.isEmpty()) {
-            latestValue = Double.parseDouble(screen);
+            latestValue = Double.parseDouble(screen); //aktuelle Inhalt des Bildschirms in latestValue gespeichert.
         } else {
-            pressEqualsKey();
+            pressEqualsKey(); //Das aktuelle Zwischenergebnis wird angezeigt
         }
-        latestOperation = operation;
+        latestOperation = operation; //aktuelle ausgewählte Operation in latestOperation gespeichert,
 
-        }
+
+    }
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -89,8 +91,11 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-        if ("Infinity".equals(screen)) {
+        // Änderung für Test2
+        if ("Infinity".equals(screen)) { //Infinity bedeutet Unendlichkeit - bei Inversion(Kehrwert) von  ist mit screen - Error angezeigt
             screen = "Error";
+
+
         }
 
 
@@ -130,7 +135,7 @@ public class Calculator {
      */
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
+            case "+" -> latestValue + Double.parseDouble(screen); //Zeichenkette in eine Gleitkommazahl umzuwandeln
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
